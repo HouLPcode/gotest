@@ -1,29 +1,30 @@
 package main
 
 import (
-	"net"
-	"fmt"
 	"bytes"
+	"fmt"
+	"net"
 )
+
 //终端执行 telnet localhost 1234 进行测试
-func main(){
-	svr,err := net.Listen("tcp",":1234")
-	if err != nil{
+func main() {
+	svr, err := net.Listen("tcp", ":1234")
+	if err != nil {
 		fmt.Println(err)
 	}
 
 	fmt.Println("server starting...")
 
-	conn,err := svr.Accept()
-	if err != nil{
+	conn, err := svr.Accept()
+	if err != nil {
 		fmt.Println(err)
 	}
 
 	handle(conn)
 }
 
-func handle(c net.Conn){
-	if c == nil{
+func handle(c net.Conn) {
+	if c == nil {
 		return
 	}
 
@@ -34,22 +35,22 @@ func handle(c net.Conn){
 	//	i++
 	//}
 
-	buf := make([]byte,1024)
+	buf := make([]byte, 1024)
 
-	for  {
+	for {
 		c.Write([]byte("i am the server\n"))
 
-		len,err := c.Read(buf)
-		if err != nil{
+		len, err := c.Read(buf)
+		if err != nil {
 			fmt.Println(err)
 			break
 		}
-		fmt.Println("len is ",len)
-		if bytes.Equal(buf[:len],[]byte("quit")){
-			fmt.Println("connet close ",i)
+		fmt.Println("len is ", len)
+		if bytes.Equal(buf[:len], []byte("quit")) {
+			fmt.Println("connet close ", i)
 			break
 		}
-		fmt.Println(string(buf[:len]),i)
+		fmt.Println(string(buf[:len]), i)
 		i++
 	}
 
