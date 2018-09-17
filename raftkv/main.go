@@ -2,8 +2,13 @@ package main
 
 import "fmt"
 
-func main(){
+func main() {
 	fmt.Println("hello baby")
 	err := make(chan error)
-	serveHttpKVAPI(8080,err)
+	serveHttpKVAPI(8080, err)
+
+	//mwal = openWal("/tmp/waldir")
+	//
+	//startRaft()
+	//serveChannel()
 }
